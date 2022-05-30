@@ -1,5 +1,5 @@
-import facebook from '../assets/img/icons/common/facebook.svg';
-import google from '../assets/img/icons/common/google.svg';
+// import facebook from '../assets/img/icons/common/facebook.svg';
+// import google from '../assets/img/icons/common/google.svg';
 import welcome from '../assets/img/icons/common/welcome.svg'
 import '../App.scss'
 import {
@@ -21,7 +21,7 @@ import {
 import React, { useCallback, useContext } from "react";
 import { withRouter, Redirect } from "react-router";
 import firebaseApp from "../auth/firebaseConfig";
-import { AuthContext } from "../auth/authentication";
+// import { AuthContext } from "../auth/authentication";
 
 const Login = ({ history }) => {
     const handleLogin = useCallback(
@@ -69,44 +69,11 @@ const Login = ({ history }) => {
                             <div className="transform-perspective-right">
                                 <Card className="bg-secondary shadow border-0">
                                     <CardHeader className="bg-white pb-5">
-                                        <div className="text-muted text-center mb-3">
-                                            <small>Sign in with</small>
-                                        </div>
-                                        <div className="btn-wrapper text-center">
-                                            <Button
-                                                className="btn-neutral btn-icon mb-1"
-                                                color="default"
-                                                href="#pablo"
-                                                onClick={e => e.preventDefault()}
-                                            >
-                                                <span className="btn-inner--icon mr-1">
-                                                    <img
-                                                        alt="..."
-                                                        src={facebook}
-                                                    />
-                                                </span>
-                                                <span className="btn-inner--text">Facebook</span>
-                                            </Button>
-                                            <Button
-                                                className="btn-neutral btn-icon mb-1"
-                                                color="default"
-                                                href="#pablo"
-                                                onClick={e => e.preventDefault()}
-                                            >
-                                                <span className="btn-inner--icon mr-1">
-                                                    <img
-                                                        alt="..."
-                                                        src={google}
-                                                    />
-                                                </span>
-                                                <span className="btn-inner--text">Google</span>
-                                            </Button>
+                                        <div className="text-center title-app-login">
+                                            <span>Learning Memories</span>
                                         </div>
                                     </CardHeader>
                                     <CardBody className="px-lg-5 py-lg-5 card-body-custom">
-                                        <div className="text-center text-muted mb-4">
-                                            <small>Or sign in with credentials</small>
-                                        </div>
                                         <Form role="form" onSubmit={handleLogin}>
                                             <FormGroup
 
