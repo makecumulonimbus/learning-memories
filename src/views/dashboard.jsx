@@ -1,13 +1,13 @@
 import LoadingApp from "../components/loading";
 import NavbarApp from "../components/Navbars/navbar";
 import React from "react";
-import { firebaseApp } from "../auth/firebaseConfig";
-import { Container, Card, Badge } from "reactstrap";
+// import firebaseApp from "../auth/firebaseConfig";
+import { Container, Card } from "reactstrap";
 import "../App.scss";
 
-class ChangeLog extends React.Component {
+class Dashboard extends React.Component {
   componentDidMount() {
-    this.loadData();
+    // this.loadData();
   }
 
   componentWillUnmount() {
@@ -21,30 +21,30 @@ class ChangeLog extends React.Component {
   };
 
   loadData = () => {
-    this.setState({
-      loading: true,
-    });
-    firebaseApp
-      .firestore()
-      .collection("changeLog")
-      .orderBy("createAt", "desc")
-      .get()
-      .then((document) => {
-        var data = [];
-        document.docs.forEach((doc) => {
-          data.push(doc.data());
-        });
-        this.setState({
-          loading: false,
-          logData: data,
-        });
-      })
-      .catch((err) => {
-        this.setState({
-          loading: false,
-        });
-        console.log(err);
-      });
+    // this.setState({
+    //   loading: true,
+    // });
+    // firebaseApp
+    //   .firestore()
+    //   .collection("changeLog")
+    //   .orderBy("createAt", "desc")
+    //   .get()
+    //   .then((document) => {
+    //     var data = [];
+    //     document.docs.forEach((doc) => {
+    //       data.push(doc.data());
+    //     });
+    //     this.setState({
+    //       loading: false,
+    //       logData: data,
+    //     });
+    //   })
+    //   .catch((err) => {
+    //     this.setState({
+    //       loading: false,
+    //     });
+    //     console.log(err);
+    //   });
   };
 
   render() {
@@ -72,36 +72,10 @@ class ChangeLog extends React.Component {
               <Container className="shape-container d-flex align-items-center py-lg">
                 <div className="col px-0">
                   <div className="title-name">
-                    Change-log
+                  Dashboard
                   </div>
                   <Card className="p-4">
-                    {this.state.logData.map((ele, index) => {
-                      return (
-                        <div key={index}>
-                          {index === 0 ? "" : <hr />}
-                          <div className="bold mb-2">
-                            Version : {ele.version}
-                            <span className="pl-2">
-                              {index === 0 ? (
-                                <Badge color="primary">NOW</Badge>
-                              ) : (
-                                ""
-                              )}
-                            </span>
-                          </div>
-
-                          <div>
-                            {ele.list.map((element, indexs) => {
-                              return (
-                                <div className="pl-4" key={indexs}>
-                                  {indexs + 1}. {element}
-                                </div>
-                              );
-                            })}
-                          </div>
-                        </div>
-                      );
-                    })}
+                
                   </Card>
                 </div>
               </Container>
@@ -128,4 +102,4 @@ class ChangeLog extends React.Component {
   }
 }
 
-export default ChangeLog;
+export default Dashboard;

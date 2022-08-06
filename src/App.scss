@@ -38,11 +38,11 @@
 }
 .section-custom {
   padding-top: 4rem;
-  padding-bottom: 3rem;
+  padding-bottom: 7rem;
 }
 
 @media only screen and (max-width: 991px) {
-  .welcome-logo {
+  .login-img {
     display: none !important;
   }
 }
@@ -81,21 +81,58 @@
   transition: 0.3s;
   box-shadow: 0px 3px 18px -6px #000;
 }
-.upload-btn {
-  position: absolute;
-  top: 55px;
-  margin-left: 13px;
-}
+
 .preview {
+  cursor: pointer;
   border: 2px dotted;
   width: 130px;
+  min-height: 130px;
   height: 100%;
   object-fit: cover;
 }
+.uploadForm {
+  display: table;
+  .removeImageCover{
+    position: absolute;
+    color: rgb(250, 35, 35);
+    right: 58px;
+    top: 38px;
+    cursor: pointer;
+    display: none;
+  }
+  .removeImage{
+    position: absolute;
+    color: rgb(250, 35, 35);
+    right: 50px;
+    top: 38px;
+    cursor: pointer;
+    display: none;
+  }
+  .uploadImage {
+    position: absolute;
+    left: 66px;
+    top: 81px;
+    font-size: 30px;
+    display: none;
+    color: rgb(44, 44, 44);
+    cursor: pointer;
+  }
+}
+.uploadForm:hover {
+  .preview {
+    opacity: 0.7;
+  }
+  .uploadImage {
+    display: block;
+  }
+  .removeImageCover{
+    display: block;
+  }
+  .removeImage{
+    display: block;
+  }
+}
 .img-size-text {
-  position: absolute;
-  top: 90px;
-  margin-left: 13px;
   font-size: 14px;
 }
 .btn-reload {
@@ -185,12 +222,11 @@ nav.react-contextmenu {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
 .small-text {
   color: #5e72e4;
 }
 .date-topic {
-  font-size: 15px;
+  font-size: 14px;
 }
 
 .type-topic.green {
@@ -325,6 +361,7 @@ nav.react-contextmenu {
 }
 
 .pagination {
+  box-shadow: 0px 4px 6px RGB(50 50 93 / 0.11);
   float: right;
 }
 .drop-filter button {
@@ -381,11 +418,45 @@ nav.react-contextmenu {
     margin: 0;
   }
 }
-.card-body-custom{
+.card-body-custom {
   padding-left: 3rem;
   padding-right: 3rem;
 }
 
-.title-app-login{
+.title-app-login {
   font-size: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.notification-container .notification {
+  border: 1px solid;
+  border-radius: 5px !important;
+}
+.space-between {
+  display: flex;
+  justify-content: space-between;
+}
+.listParagraph {
+  border: 1px solid #979797;
+  margin: 15px;
+  border-radius: 0.25rem;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+.paragraph{
+  font-size: 18px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.btn-add-paragraph{
+  width: 100px;
+}
+.text-sub-detail{
+  font-weight: 600;
+  text-transform: capitalize;
+}
+.iconMenu{
+  color: #5e72e4;
 }
