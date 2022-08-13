@@ -10,11 +10,6 @@ class ChangeLog extends React.Component {
     this.loadData();
   }
 
-  componentWillUnmount() {
-    localStorage.setItem("currentPage", 0);
-    localStorage.setItem("activePage", 1);
-  }
-
   state = {
     loading: false,
     logData: [],

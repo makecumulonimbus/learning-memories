@@ -639,8 +639,6 @@ class Topic extends React.Component {
 
   handlePageChange = (pageNumber) => {
     if (this.state.activePage !== pageNumber) {
-      localStorage.setItem("currentPage", pageNumber - 1);
-      localStorage.setItem("activePage", pageNumber);
       this.setState(
         {
           currentPage: pageNumber - 1,

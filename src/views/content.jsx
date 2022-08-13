@@ -28,10 +28,7 @@ class Content extends React.Component {
       this.loadData();
     }
   }
-  componentWillUnmount() {
-    localStorage.setItem("currentPage", 0);
-    localStorage.setItem("activePage", 1);
-  }
+
   modules = {
     toolbar: [
       [{ header: [1, 2, 3, 4, 5, false] }],
