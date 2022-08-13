@@ -13,10 +13,20 @@ import {
   NotificationManager,
 } from "react-notifications";
 import TopicModal from "../components/Modal/topicModal";
+import { connect } from "react-redux";
 
 class Content extends React.Component {
   componentDidMount() {
-    this.loadData();
+    if (
+      this.props.topicSelected.id !== undefined &&
+      this.props.topicSelected.id === this.props.match.params.id
+    ) {
+      this.setState({
+        datas: this.props.topicSelected,
+      });
+    } else {
+      this.loadData();
+    }
   }
   componentWillUnmount() {
     localStorage.setItem("currentPage", 0);
@@ -106,9 +116,10 @@ class Content extends React.Component {
           loading: false,
           datas: setData,
         });
-      }).catch((err) =>{
-        this.props.history.goBack()
       })
+      .catch((err) => {
+        this.props.history.goBack();
+      });
   };
 
   editItem = async (item) => {
@@ -229,7 +240,7 @@ class Content extends React.Component {
 
   formatDate = (date) => {
     var time = date.toDate();
-    var formatTimeShow = moment(time).format("DD-MM-YYYY HH:mm");
+    var formatTimeShow = moment(time).format("DD-MM-YYYY");
     return formatTimeShow;
   };
 
@@ -317,7 +328,21 @@ class Content extends React.Component {
         .update(setData)
         .then(() => {
           NotificationManager.success("", "SUCCESS");
-          this.loadData();
+          let getDateE = new Date(data.updateAt)
+            .toISOString()
+            .slice(0, 10)
+            .split("-");
+          var _dateE = getDateE[2] + "-" + getDateE[1] + "-" + getDateE[0];
+
+          setData.createAt = this.state.dataSelected.createAt;
+          setData.updateAt = _dateE;
+          setData.id = this.state.dataSelected.id;
+          this.state.datas = setData;
+          this.setTopicSelected(this.state.datas);
+          this.setTopicList(this.state.datas);
+          this.setState({
+            loading: false,
+          });
         })
         .catch((err) => {
           console.log(err);
@@ -415,6 +440,24 @@ class Content extends React.Component {
     });
   }
 
+  setTopicList = (data) => {
+    if (this.props.topicList.length != 0) {
+      let topicData = this.props.topicList;
+      let newData = topicData.map((el) => (el.id === data.id ?  data  : el));
+      this.props.dispatch({
+        type: "SET_TOPIC_LIST",
+        payload: newData,
+      });
+    }
+  };
+
+  setTopicSelected = (data) => {
+    this.props.dispatch({
+      type: "SET_TOPIC_SELECTED",
+      payload: data,
+    });
+  };
+
   render() {
     return (
       <>
@@ -479,7 +522,9 @@ class Content extends React.Component {
                         {this.state.datas.intro !== "" ? (
                           <div
                             className="detail-text"
-                            dangerouslySetInnerHTML={{ __html: this.state.datas.intro }}
+                            dangerouslySetInnerHTML={{
+                              __html: this.state.datas.intro,
+                            }}
                           ></div>
                         ) : (
                           ""
@@ -634,4 +679,11 @@ class Content extends React.Component {
   }
 }
 
-export default Content;
+const mapStateToProps = (state) => {
+  return {
+    topicSelected: state.topicSelected,
+    topicList: state.topicList,
+  };
+};
+
+export default connect(mapStateToProps)(Content);

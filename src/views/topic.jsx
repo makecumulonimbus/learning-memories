@@ -25,10 +25,22 @@ import {
 } from "reactstrap";
 import "../App.scss";
 import "react-quill/dist/quill.snow.css";
+import { connect } from "react-redux";
 
 class Topic extends React.Component {
   componentDidMount() {
-    this.loadData();
+    if (this.props.topicPageDetail.nameApp == this.props.match.params.name &&
+       this.props.topicList.length != 0) {
+      this.setState({
+        datas: this.props.topicList,
+        totalDatas : this.props.topicPageDetail.totalData,
+        itemStart : this.props.topicPageDetail.itemStart,
+        itemEnd : this.props.topicPageDetail.itemEnd,
+        activePage : this.props.topicPageDetail.page
+      });
+    } else {
+      this.loadData();
+    }
   }
 
   modules = {
@@ -55,12 +67,8 @@ class Topic extends React.Component {
     filterType: "all",
     showModalDelete: false,
     datas: [],
-    currentPage: localStorage.getItem("currentPage")
-      ? localStorage.getItem("currentPage")
-      : 0,
-    activePage: localStorage.getItem("activePage")
-      ? Number(localStorage.getItem("activePage"))
-      : 1,
+    currentPage: 0,
+    activePage: 1,
     itemPerPage: 25,
     form: {
       topic: "",
@@ -85,6 +93,7 @@ class Topic extends React.Component {
     ],
     dropdownOpen: false,
   };
+
 
   loadData = () => {
     this.setState({
@@ -146,6 +155,14 @@ class Topic extends React.Component {
           loading: false,
           datas: setData,
         });
+        this.setTopicList(setData)
+        this.setTopicPageDetail({
+          nameApp :  this.props.match.params.name,
+          totalData : itemCount,
+          itemStart : start,
+          itemEnd : end,
+          page : this.state.activePage
+        })
       });
     });
   };
@@ -374,14 +391,31 @@ class Topic extends React.Component {
         content: newitem,
       };
 
-      console.log(setData);
       firebaseApp
         .firestore()
         .collection(this.state.paramsURL)
         .add(setData)
-        .then(() => {
+        .then((res) => {
           NotificationManager.success("", "SUCCESS");
-          this.loadData();
+          if(this.state.datas.length >= 25){
+            this.state.datas.pop()
+          }
+
+          let getDateS = new Date(data.createAt).toISOString().slice(0, 10).split('-');
+          var _dateS = getDateS[2] +'-'+ getDateS[1] +'-'+ getDateS[0];
+
+          let getDateE = new Date(data.updateAt).toISOString().slice(0, 10).split('-');
+          var _dateE = getDateE[2]  +'-'+ getDateE[1] + '-'+ getDateE[0];
+
+          setData.createAt = _dateS
+          setData.updateAt = _dateE
+          setData.id = res.id
+          this.state.datas.unshift(setData);
+          this.setTopicList(this.state.datas);
+          this.setState({
+            loading: false,
+          });
+       
         })
         .catch((err) => {
           console.log(err);
@@ -438,7 +472,20 @@ class Topic extends React.Component {
         .update(setData)
         .then(() => {
           NotificationManager.success("", "SUCCESS");
-          this.loadData();
+       
+          let getDateE = new Date(data.updateAt).toISOString().slice(0, 10).split('-');
+          var _dateE =  getDateE[2]  +'-'+ getDateE[1] + '-'+ getDateE[0];
+          
+          setData.createAt = this.state.dataSelected.createAt
+          setData.updateAt = _dateE
+          setData.id = this.state.dataSelected.id;
+          this.setState((prevState) => ({
+            datas: prevState.datas.map((el) => (el.id === setData.id ? setData : el)),
+          }));
+          this.setTopicList(this.state.datas);
+          this.setState({
+            loading: false,
+          });
         })
         .catch((err) => {
           console.log(err);
@@ -505,6 +552,7 @@ class Topic extends React.Component {
 
   goDetail = (element) => {
     var id = element.id;
+    this.setTopicSelected(element)
     this.props.history.push("/topic/" + this.state.paramsURL + "/" + id);
   };
 
@@ -608,6 +656,27 @@ class Topic extends React.Component {
       dropdownOpen: !this.state.dropdownOpen,
     });
   };
+
+  setTopicList = (data) => {
+    this.props.dispatch({
+      type: "SET_TOPIC_LIST",
+      payload: data,
+    });
+  };
+
+  setTopicSelected = (data) => {
+    this.props.dispatch({
+      type: "SET_TOPIC_SELECTED",
+      payload: data,
+    });
+  }
+
+  setTopicPageDetail = (data) => {
+    this.props.dispatch({
+      type: "SET_TOPIC_PAGE_DETAIL",
+      payload: data,
+    });
+  }
 
   render() {
     return (
@@ -834,4 +903,11 @@ class Topic extends React.Component {
   }
 }
 
-export default Topic;
+const mapStateToProps = (state) => {
+  return {
+    topicList: state.topicList,
+    topicPageDetail : state.topicPageDetail
+  };
+};
+
+export default connect(mapStateToProps)(Topic)

@@ -11,10 +11,17 @@ import {
   NotificationManager,
 } from "react-notifications";
 import "../App.scss";
+import { connect } from "react-redux";
 
 class HomePage extends React.Component {
   componentDidMount() {
-    this.checkStoreData();
+    if (this.props.appList.length != 0) {
+      this.setState({
+        datas: this.props.appList,
+      });
+    } else {
+      this.loadData();
+    }
   }
 
   state = {
@@ -31,9 +38,15 @@ class HomePage extends React.Component {
     },
   };
 
-  checkStoreData() {
-    this.loadData();
-  }
+  // checkStoreData() {
+  //   if (this.props.appList.length != 0) {
+  //     this.setState({
+  //       datas: this.props.appList,
+  //     });
+  //   } else {
+  //     this.loadData();
+  //   }
+  // }
 
   loadData = () => {
     this.setState({
@@ -57,6 +70,8 @@ class HomePage extends React.Component {
           datas: setData,
           loading: false,
         });
+
+        this.setAppList(setData);
       })
       .catch((err) => {
         console.log(err);
@@ -142,9 +157,14 @@ class HomePage extends React.Component {
       .firestore()
       .collection("learningApp")
       .add(data)
-      .then(() => {
+      .then((res) => {
         NotificationManager.success("", "SUCCESS");
-        this.loadData();
+        data.id = res.id;
+        this.state.datas.push(data);
+        this.setAppList(this.state.datas);
+        this.setState({
+          loading: false,
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -162,7 +182,14 @@ class HomePage extends React.Component {
       .update(data)
       .then(() => {
         NotificationManager.success("", "SUCCESS");
-        this.loadData();
+        data.id = this.state.dataSelected.id;
+        this.setState((prevState) => ({
+          datas: prevState.datas.map((el) => (el.id === data.id ? data : el)),
+        }));
+        this.setAppList(this.state.datas);
+        this.setState({
+          loading: false,
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -185,7 +212,15 @@ class HomePage extends React.Component {
       .delete()
       .then(() => {
         NotificationManager.success("", "SUCCESS");
-        this.loadData();
+        this.setState((prevState) => ({
+          datas: prevState.datas.filter((el) => {
+            return el.id !== this.state.dataSelected.id;
+          }),
+        }));
+        this.setAppList(this.state.datas);
+        this.setState({
+          loading: false,
+        });
       })
       .catch((err) => {
         NotificationManager.error(err.message, "ERROR", 3000);
@@ -247,6 +282,13 @@ class HomePage extends React.Component {
     this.setState({
       showModalDelete: false,
       showModal: false,
+    });
+  };
+
+  setAppList = (data) => {
+    this.props.dispatch({
+      type: "SET_APP_LIST",
+      payload: data,
     });
   };
 
@@ -368,4 +410,10 @@ class HomePage extends React.Component {
   }
 }
 
-export default HomePage;
+const mapStateToProps = (state) => {
+  return {
+    appList: state.appList,
+  };
+};
+
+export default connect(mapStateToProps)(HomePage);
