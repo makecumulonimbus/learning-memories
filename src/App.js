@@ -3,7 +3,6 @@ import Content from "./views/content";
 import Dashboard from './views/dashboard'
 import HomePage from "./views/home";
 import Login from "./views/login";
-import Profile from "./views/profile";
 import React from "react";
 import Topic from "./views/topic";
 import { AuthContextProvider, useAuthState } from "./auth/authentication";
@@ -58,7 +57,6 @@ function App() {
             path="/topic/:name/:id"
             component={Content}
           />  <AuthenticatedRoute exact path="/dashboard" component={Dashboard} />
-          <AuthenticatedRoute exact path="/profile" component={Profile} />
           <AuthenticatedRoute exact path="/change-log" component={ChangeLog} />
           <UnauthenticatedRoute exact path="/login" component={Login} />
         </Router>

@@ -121,10 +121,6 @@ class NavbarApp extends React.Component {
                         <i className="ni ni-chart-bar-32 iconMenu"/>
                         Dashboard
                       </DropdownItem>
-                      <DropdownItem to="/profile" tag={Link}>
-                        <i className="ni ni-circle-08 iconMenu" />
-                        Profile
-                      </DropdownItem>
                       <DropdownItem to="/change-log" tag={Link}>
                         <i className="ni ni-single-copy-04 iconMenu" />Change Log
                       </DropdownItem>
