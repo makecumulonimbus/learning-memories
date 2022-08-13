@@ -1,38 +1,66 @@
-// import React from "react";
-// import { connect } from "react-redux";
+import LoadingApp from "../components/loading";
+import NavbarApp from "../components/Navbars/navbar";
+import React from "react";
+import { firebaseApp } from "../auth/firebaseConfig";
+import { Container, Card, Badge } from "reactstrap";
+import "../App.scss";
 
-// class Dashboard extends React.Component {
-//   increment = () => {
-//     this.props.dispatch({
-//       type: "INCREMENT"
-//     });
-//   };
+class Dashboard extends React.Component {
+  componentDidMount() {}
 
-//   decrement = () => {
-//     this.props.dispatch({
-//       type: "DECREMENT"
-//     });
-//   };
+  state = {
+    loading: false,
+  };
 
-//   render() {
-//     return (
-//       <div className="App mt-5">
-//         <button onClick={this.increment} className="btn btn-success mr-5">
-//           Increment
-//         </button>
-//         <button onClick={this.decrement} className="btn btn-danger">
-//           Decrement
-//         </button>
-//         <h2 className="mt-5 display-1">{this.props.count}</h2>
-//       </div>
-//     );
-//   }
-// }
+  render() {
+    return (
+      <>
+        <NavbarApp {...this.props} />
+        <div className="position-relative">
+          <section className="section section-hero section-shaped">
+            <div className="shape shape-style-1 shape-default">
+              <span className="span-150" />
+              <span className="span-50" />
+              <span className="span-50" />
+              <span className="span-75" />
+              <span className="span-100" />
+              <span className="span-75" />
+              <span className="span-50" />
+              <span className="span-100" />
+              <span className="span-50" />
+              <span className="span-100" />
+            </div>
 
-// const mapStateToProps = state => {
-//   return {
-//     count: state.count
-//   };
-// };
+            {this.state.loading ? (
+              <LoadingApp type={"bars"} color={"white"} />
+            ) : (
+              <Container className="shape-container d-flex align-items-center py-lg">
+                <div className="col px-0">
+                  <div className="title-name">Dashboard</div>
+                  <Card className="p-4"></Card>
+                </div>
+              </Container>
+            )}
+            <div className="separator separator-bottom separator-skew zindex-100">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                preserveAspectRatio="none"
+                version="1.1"
+                viewBox="0 0 2560 100"
+                x="0"
+                y="0"
+              >
+                <polygon
+                  className="fill-white"
+                  points="2560 0 2560 100 0 100"
+                />
+              </svg>
+            </div>
+          </section>
+        </div>
+      </>
+    );
+  }
+}
 
-// export default connect(mapStateToProps)(Dashboard);
+export default Dashboard;
