@@ -440,7 +440,7 @@ class Content extends React.Component {
   setTopicList = (data) => {
     if (this.props.topicList.length != 0) {
       let topicData = this.props.topicList;
-      let newData = topicData.map((el) => (el.id === data.id ?  data  : el));
+      let newData = topicData.map((el) => (el.id === data.id ? data : el));
       this.props.dispatch({
         type: "SET_TOPIC_LIST",
         payload: newData,
@@ -453,6 +453,18 @@ class Content extends React.Component {
       type: "SET_TOPIC_SELECTED",
       payload: data,
     });
+  };
+
+  showImage = (img) => {
+    var modal = document.getElementById("modal-show-image");
+    var modalImg = document.getElementById("imgShow");
+    modal.style.display = "block";
+    modalImg.src = img;
+  };
+
+  closeShowImge = () => {
+    var modal = document.getElementById("modal-show-image");
+    modal.style.display = "none";
   };
 
   render() {
@@ -478,6 +490,15 @@ class Content extends React.Component {
               <LoadingApp type={"bars"} color={"white"} />
             ) : (
               <Container className="shape-container d-flex align-items-center py-lg">
+                <div
+                  id="modal-show-image"
+                  class="modal"
+                  onClick={() => this.closeShowImge()}
+                >
+                  <span class="close">&times;</span>
+                  <img class="modal-content" id="imgShow" />
+                </div>
+
                 <div className="btn-add">
                   <Button
                     className="btn-neutral btn-icon"
@@ -509,7 +530,9 @@ class Content extends React.Component {
                         {this.state.datas.cover !== "" ? (
                           <img
                             src={this.state.datas.cover}
-                            max-width="500px"
+                            onClick={() =>
+                              this.showImage(this.state.datas.cover)
+                            }
                           ></img>
                         ) : (
                           ""
@@ -543,9 +566,9 @@ class Content extends React.Component {
                             {ele.image ? (
                               <div className="img-detail text-center mb-4 mt-4">
                                 <img
-                                  max-width="500px"
                                   src={ele.image}
                                   alt={ele.image}
+                                  onClick={() => this.showImage(ele.image)}
                                 />
                               </div>
                             ) : (
@@ -653,6 +676,7 @@ class Content extends React.Component {
               </svg>
             </div>
           </section>
+
           <TopicModal
             showModal={this.state.showModal}
             cancelToggle={this.cancelToggle}
