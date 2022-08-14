@@ -254,7 +254,7 @@ class HomePage extends React.Component {
 
       if (filesize > maxfilesize) {
         NotificationManager.error("FILE SIZE MAXIMUM 1MB", "ERROR", 3000);
-        return
+        return;
       }
       var imageItem = e.target.files[0];
       var reader = new FileReader();

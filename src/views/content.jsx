@@ -182,7 +182,7 @@ class Content extends React.Component {
 
       if (filesize > maxfilesize) {
         NotificationManager.error("FILE SIZE MAXIMUM 1MB", "ERROR", 3000);
-        return
+        return;
       }
       var imageItem = e.target.files[0];
       var reader = new FileReader();
@@ -228,7 +228,7 @@ class Content extends React.Component {
 
       if (filesize > maxfilesize) {
         NotificationManager.error("FILE SIZE MAXIMUM 1MB", "ERROR", 3000);
-        return
+        return;
       }
       var imageItem = e.target.files[0];
       var reader = new FileReader();
@@ -508,10 +508,7 @@ class Content extends React.Component {
               <LoadingApp type={"bars"} color={"white"} />
             ) : (
               <Container className="shape-container d-flex align-items-center py-lg">
-                <div
-                  id="modal-show-image"
-                  onClick={() => this.closeShowImge()}
-                >
+                <div id="modal-show-image" onClick={() => this.closeShowImge()}>
                   <span className="close-show-image">&times;</span>
                   <img className="modal-content-img" id="imgShow" />
                 </div>

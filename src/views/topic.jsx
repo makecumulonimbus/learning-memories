@@ -29,14 +29,16 @@ import { connect } from "react-redux";
 
 class Topic extends React.Component {
   componentDidMount() {
-    if (this.props.topicPageDetail.nameApp == this.props.match.params.name &&
-       this.props.topicList.length != 0) {
+    if (
+      this.props.topicPageDetail.nameApp == this.props.match.params.name &&
+      this.props.topicList.length != 0
+    ) {
       this.setState({
         datas: this.props.topicList,
-        totalDatas : this.props.topicPageDetail.totalData,
-        itemStart : this.props.topicPageDetail.itemStart,
-        itemEnd : this.props.topicPageDetail.itemEnd,
-        activePage : this.props.topicPageDetail.page
+        totalDatas: this.props.topicPageDetail.totalData,
+        itemStart: this.props.topicPageDetail.itemStart,
+        itemEnd: this.props.topicPageDetail.itemEnd,
+        activePage: this.props.topicPageDetail.page,
       });
     } else {
       this.loadData();
@@ -94,7 +96,6 @@ class Topic extends React.Component {
     dropdownOpen: false,
   };
 
-
   loadData = () => {
     this.setState({
       loading: true,
@@ -139,8 +140,8 @@ class Topic extends React.Component {
             type: doc.data().type,
             version: doc.data().version ? doc.data().version : "",
             content: doc.data().content ? doc.data().content : [],
-            cover : doc.data().cover ? doc.data().cover : '',
-            intro : doc.data().intro ? doc.data().intro : '',
+            cover: doc.data().cover ? doc.data().cover : "",
+            intro: doc.data().intro ? doc.data().intro : "",
             createAt: doc.data().createAt
               ? this.formatDate(doc.data().createAt)
               : "",
@@ -150,19 +151,19 @@ class Topic extends React.Component {
           };
           setData.push(element);
         });
-        
+
         this.setState({
           loading: false,
           datas: setData,
         });
-        this.setTopicList(setData)
+        this.setTopicList(setData);
         this.setTopicPageDetail({
-          nameApp :  this.props.match.params.name,
-          totalData : itemCount,
-          itemStart : start,
-          itemEnd : end,
-          page : this.state.activePage
-        })
+          nameApp: this.props.match.params.name,
+          totalData: itemCount,
+          itemStart: start,
+          itemEnd: end,
+          page: this.state.activePage,
+        });
       });
     });
   };
@@ -238,7 +239,6 @@ class Topic extends React.Component {
       }));
     }
     if (formType === "cover") {
-     
       if (!e.target.files[0]) return;
 
       var maxfilesize = 1024 * 1024;
@@ -246,7 +246,7 @@ class Topic extends React.Component {
 
       if (filesize > maxfilesize) {
         NotificationManager.error("FILE SIZE MAXIMUM 1MB", "ERROR", 3000);
-        return
+        return;
       }
       var imageItem = e.target.files[0];
       var reader = new FileReader();
@@ -292,7 +292,7 @@ class Topic extends React.Component {
 
       if (filesize > maxfilesize) {
         NotificationManager.error("FILE SIZE MAXIMUM 1MB", "ERROR", 3000);
-        return
+        return;
       }
       var imageItem = e.target.files[0];
       var reader = new FileReader();
@@ -416,25 +416,30 @@ class Topic extends React.Component {
         .add(setData)
         .then((res) => {
           NotificationManager.success("", "SUCCESS");
-          if(this.state.datas.length >= 25){
-            this.state.datas.pop()
+          if (this.state.datas.length >= 25) {
+            this.state.datas.pop();
           }
 
-          let getDateS = new Date(data.createAt).toISOString().slice(0, 10).split('-');
-          var _dateS = getDateS[2] +'-'+ getDateS[1] +'-'+ getDateS[0];
+          let getDateS = new Date(data.createAt)
+            .toISOString()
+            .slice(0, 10)
+            .split("-");
+          var _dateS = getDateS[2] + "-" + getDateS[1] + "-" + getDateS[0];
 
-          let getDateE = new Date(data.updateAt).toISOString().slice(0, 10).split('-');
-          var _dateE = getDateE[2]  +'-'+ getDateE[1] + '-'+ getDateE[0];
+          let getDateE = new Date(data.updateAt)
+            .toISOString()
+            .slice(0, 10)
+            .split("-");
+          var _dateE = getDateE[2] + "-" + getDateE[1] + "-" + getDateE[0];
 
-          setData.createAt = _dateS
-          setData.updateAt = _dateE
-          setData.id = res.id
+          setData.createAt = _dateS;
+          setData.updateAt = _dateE;
+          setData.id = res.id;
           this.state.datas.unshift(setData);
           this.setTopicList(this.state.datas);
           this.setState({
             loading: false,
           });
-       
         })
         .catch((err) => {
           console.log(err);
@@ -491,15 +496,20 @@ class Topic extends React.Component {
         .update(setData)
         .then(() => {
           NotificationManager.success("", "SUCCESS");
-       
-          let getDateE = new Date(data.updateAt).toISOString().slice(0, 10).split('-');
-          var _dateE =  getDateE[2]  +'-'+ getDateE[1] + '-'+ getDateE[0];
-          
-          setData.createAt = this.state.dataSelected.createAt
-          setData.updateAt = _dateE
+
+          let getDateE = new Date(data.updateAt)
+            .toISOString()
+            .slice(0, 10)
+            .split("-");
+          var _dateE = getDateE[2] + "-" + getDateE[1] + "-" + getDateE[0];
+
+          setData.createAt = this.state.dataSelected.createAt;
+          setData.updateAt = _dateE;
           setData.id = this.state.dataSelected.id;
           this.setState((prevState) => ({
-            datas: prevState.datas.map((el) => (el.id === setData.id ? setData : el)),
+            datas: prevState.datas.map((el) =>
+              el.id === setData.id ? setData : el
+            ),
           }));
           this.setTopicList(this.state.datas);
           this.setState({
@@ -520,9 +530,9 @@ class Topic extends React.Component {
     this.setState({
       loading: true,
     });
-    
+
     if (this.state.dataSelected.cover !== "") {
-      this.deleteOldImage(this.state.dataSelected.cover)
+      this.deleteOldImage(this.state.dataSelected.cover);
     }
 
     this.state.dataSelected.content.forEach((ele) => {
@@ -571,7 +581,7 @@ class Topic extends React.Component {
 
   goDetail = (element) => {
     var id = element.id;
-    this.setTopicSelected(element)
+    this.setTopicSelected(element);
     this.props.history.push("/topic/" + this.state.paramsURL + "/" + id);
   };
 
@@ -686,14 +696,14 @@ class Topic extends React.Component {
       type: "SET_TOPIC_SELECTED",
       payload: data,
     });
-  }
+  };
 
   setTopicPageDetail = (data) => {
     this.props.dispatch({
       type: "SET_TOPIC_PAGE_DETAIL",
       payload: data,
     });
-  }
+  };
 
   render() {
     return (
@@ -923,8 +933,8 @@ class Topic extends React.Component {
 const mapStateToProps = (state) => {
   return {
     topicList: state.topicList,
-    topicPageDetail : state.topicPageDetail
+    topicPageDetail: state.topicPageDetail,
   };
 };
 
-export default connect(mapStateToProps)(Topic)
+export default connect(mapStateToProps)(Topic);

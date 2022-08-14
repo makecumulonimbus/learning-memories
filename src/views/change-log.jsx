@@ -66,9 +66,7 @@ class ChangeLog extends React.Component {
             ) : (
               <Container className="shape-container d-flex align-items-center py-lg">
                 <div className="col px-0">
-                  <div className="title-name">
-                    Change-log
-                  </div>
+                  <div className="title-name">Change-log</div>
                   <Card className="p-4">
                     {this.state.logData.map((ele, index) => {
                       return (

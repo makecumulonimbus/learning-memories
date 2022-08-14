@@ -57,14 +57,14 @@ const Login = ({ history }) => {
         <Container className="py-md">
           <Row className="row-grid justify-content-between align-items-center">
             <Col lg="6">
-              <img className="login-img" src={login} width="450px" alt=""/>
+              <img className="login-img" src={login} width="450px" alt="" />
             </Col>
             <Col className="mb-lg-auto" lg="5">
               <div className="transform-perspective-right">
                 <Card className="bg-secondary shadow border-0">
                   <CardHeader className="bg-white">
                     <div className="text-center title-app-login">
-                      <img className="logo" src={logo} width="90px"  alt=""/>
+                      <img className="logo" src={logo} width="90px" alt="" />
                       <span>Learning Memories</span>
                     </div>
                   </CardHeader>
@@ -94,7 +94,7 @@ const Login = ({ history }) => {
                             </InputGroupText>
                           </InputGroupAddon>
                           <Input
-                           className="form-control-alternative"
+                            className="form-control-alternative"
                             placeholder="Password"
                             type="password"
                             autoComplete="off"

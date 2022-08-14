@@ -1,6 +1,6 @@
 import ChangeLog from "./views/change-log";
 import Content from "./views/content";
-import Dashboard from './views/dashboard'
+import Dashboard from "./views/dashboard";
 import HomePage from "./views/home";
 import Login from "./views/login";
 import React from "react";
@@ -51,12 +51,12 @@ function App() {
           </Route>
           <AuthenticatedRoute exact path="/home" component={HomePage} />
           <AuthenticatedRoute exact path="/topic/:name" component={Topic} />
-          
           <AuthenticatedRoute
             exact
             path="/topic/:name/:id"
             component={Content}
-          />  <AuthenticatedRoute exact path="/dashboard" component={Dashboard} />
+          />{" "}
+          <AuthenticatedRoute exact path="/dashboard" component={Dashboard} />
           <AuthenticatedRoute exact path="/change-log" component={ChangeLog} />
           <UnauthenticatedRoute exact path="/login" component={Login} />
         </Router>

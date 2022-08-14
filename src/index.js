@@ -6,10 +6,13 @@ import "./assets/scss/argon-design-system-react.scss?v1.1.0";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
-import {createStore} from 'redux'
-import reducer from './store/reducers'
+import { createStore } from "redux";
+import reducer from "./store/reducers";
 
-let store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+let store = createStore(
+  reducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 const AppWithRouter = () => (
   <BrowserRouter>
