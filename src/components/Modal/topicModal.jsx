@@ -40,7 +40,6 @@ const TopicModal = (props) => {
                 <Input
                   type="text"
                   name="name"
-                  id="exampleEmail"
                   required
                   placeholder="Topic title"
                   value={props.form.topic}
@@ -49,13 +48,12 @@ const TopicModal = (props) => {
                 />
               </FormGroup>
             </Col>
-            <Col lg="3" md="4" sm="6">
+            <Col lg="6" md="6" sm="6">
               <FormGroup>
                 <Label for="Name">Type</Label>
                 <Input
                   type="select"
                   name="select"
-                  id="exampleSelect"
                   value={props.form.type}
                   onChange={(e) => props.changeForm("type", e)}
                 >
@@ -65,13 +63,12 @@ const TopicModal = (props) => {
                 </Input>
               </FormGroup>
             </Col>
-            <Col lg="3" md="4" sm="6">
+            <Col lg="6" md="6" sm="6">
               <FormGroup>
                 <Label for="Name">Version</Label>
                 <Input
                   type="text"
                   name="version"
-                  id="exampleEmail"
                   placeholder="version"
                   value={props.form.version}
                   onChange={(e) => props.changeForm("version", e)}
@@ -79,8 +76,21 @@ const TopicModal = (props) => {
                 />
               </FormGroup>
             </Col>
-            <Col lg="6" md="4"></Col>
-
+            <Col lg="6" md="6">
+              <FormGroup>
+                <Label for="Name">Reference</Label>
+                <Input
+                  type="text"
+                  name="reference"
+                  placeholder="refter"
+                  value={props.form.reference}
+                  onChange={(e) => props.changeForm("reference", e)}
+                  autoComplete="off"
+                />
+              </FormGroup>
+            </Col>
+            <Col lg="6" md="6">
+            </Col>
             <Col lg="3" md="4">
               <FormGroup>
                 <Label for="Image">Cover</Label>

@@ -79,6 +79,7 @@ class Topic extends React.Component {
       preview: "",
       cover: "",
       intro: "",
+      reference: "",
     },
 
     itemStart: null,
@@ -142,6 +143,7 @@ class Topic extends React.Component {
             content: doc.data().content ? doc.data().content : [],
             cover: doc.data().cover ? doc.data().cover : "",
             intro: doc.data().intro ? doc.data().intro : "",
+            reference: doc.data().reference ? doc.data().reference : "",
             createAt: doc.data().createAt
               ? this.formatDate(doc.data().createAt)
               : "",
@@ -196,6 +198,7 @@ class Topic extends React.Component {
         cover: item.cover ? item.cover : "",
         preview: item.cover ? item.cover : "",
         intro: item.intro ? item.intro : "",
+        reference: item.reference ? item.reference : "",
       },
       formArray: setForm,
       dataSelected: item,
@@ -276,6 +279,14 @@ class Topic extends React.Component {
         },
       }));
     }
+    if (formType === "reference") {
+      this.setState((prevState) => ({
+        form: {
+          ...prevState.form,
+          reference: value,
+        },
+      }));
+    }
   };
 
   changeFormArray = (formType, e, index) => {
@@ -332,6 +343,7 @@ class Topic extends React.Component {
       version: data.version,
       intro: data.intro,
       cover: data.cover,
+      reference: data.reference,
       content: dataForm,
     };
 
@@ -407,6 +419,7 @@ class Topic extends React.Component {
         version: data.version,
         intro: data.intro,
         cover: data.cover,
+        reference: data.reference,
         content: newitem,
       };
 
@@ -487,6 +500,7 @@ class Topic extends React.Component {
         version: data.version,
         intro: data.intro,
         cover: data.cover,
+        reference: data.reference,
         content: newitem,
       };
 
@@ -660,6 +674,7 @@ class Topic extends React.Component {
         type: "how-to",
         version: "",
         intro: "",
+        reference: "",
         cover: "",
       },
       formArray: [],

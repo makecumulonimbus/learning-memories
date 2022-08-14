@@ -66,6 +66,7 @@ class Content extends React.Component {
       preview: "",
       cover: "",
       intro: "",
+      reference: "",
     },
     formArray: [
       {
@@ -101,6 +102,7 @@ class Content extends React.Component {
           content: doc.data().content ? doc.data().content : [],
           cover: doc.data().cover ? doc.data().cover : "",
           intro: doc.data().intro ? doc.data().intro : "",
+          reference: doc.data().reference ? doc.data().reference : "",
           createAt: doc.data().createAt
             ? this.formatDate(doc.data().createAt)
             : "",
@@ -140,6 +142,7 @@ class Content extends React.Component {
         cover: item.cover ? item.cover : "",
         preview: item.cover ? item.cover : "",
         intro: item.intro ? item.intro : "",
+        reference: item.reference ? item.reference : "",
       },
       formArray: setForm,
       dataSelected: item,
@@ -212,6 +215,14 @@ class Content extends React.Component {
         },
       }));
     }
+    if (formType === "reference") {
+      this.setState((prevState) => ({
+        form: {
+          ...prevState.form,
+          reference: value,
+        },
+      }));
+    }
   };
 
   changeFormArray = (formType, e, index) => {
@@ -273,6 +284,7 @@ class Content extends React.Component {
       type: data.type,
       version: data.version,
       intro: data.intro,
+      reference: data.reference,
       cover: data.cover,
       content: dataForm,
     };
@@ -333,6 +345,7 @@ class Content extends React.Component {
         updateAt: data.updateAt,
         version: data.version,
         intro: data.intro,
+        reference: data.reference,
         cover: data.cover,
         content: newitem,
       };
@@ -417,6 +430,7 @@ class Content extends React.Component {
         type: "how-to",
         version: "",
         intro: "",
+        reference: "",
         cover: "",
       },
       formArray: [],
@@ -610,6 +624,12 @@ class Content extends React.Component {
                         );
                       })}
 
+                      <div className="pb-1 detail-sub">
+                        <span className="text-sub-detail">reference : </span>
+                        {this.state.datas.reference
+                          ? this.state.datas.reference
+                          : "-"}
+                      </div>
                       <div className="pb-1 detail-sub d-flex align-items-center">
                         <span className="text-sub-detail pr-1">type : </span>
                         {this.state.datas.type === "how-to" ? (
