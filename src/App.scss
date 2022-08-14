@@ -464,6 +464,13 @@ nav.react-contextmenu {
 }
 
 @media only screen and (max-width: 768px) {
+  .uploadForm {
+    .removeImageCover,
+    .removeImage {
+      right: 0;
+      left: 123px;
+    }
+  }
   .img-cover img,
   .img-detail img {
     max-width: 400px;
@@ -483,7 +490,7 @@ nav.react-contextmenu {
   }
 }
 
-.modal {
+#modal-show-image{
   display: none; 
   position: fixed;
   z-index: 999; 
@@ -496,7 +503,7 @@ nav.react-contextmenu {
   background-color: rgba(0,0,0,0.9);
 }
 
-.modal-content {
+.modal-content-img {
   margin: auto;
   display: block;
   width: 80%;
@@ -504,7 +511,7 @@ nav.react-contextmenu {
 }
 
 
-.modal-content {  
+.modal-content-img {  
   -webkit-animation-name: zoom;
   -webkit-animation-duration: 0.6s;
   animation-name: zoom;
@@ -521,7 +528,7 @@ nav.react-contextmenu {
   to {transform:scale(1)}
 }
 
-.close {
+.close-show-image {
   position: absolute;
   top: 15px;
   right: 35px;
@@ -531,8 +538,8 @@ nav.react-contextmenu {
   transition: 0.3s;
 }
 
-.close:hover,
-.close:focus {
+.close-show-image:hover,
+.close-show-image:focus {
   color: #bbb;
   text-decoration: none;
   cursor: pointer;
@@ -542,4 +549,16 @@ nav.react-contextmenu {
   .modal-content {
     width: 100%;
   }
+}
+
+@media only screen and (max-width: 992px){
+.uploadForm {
+ 
+  .removeImage {
+    right: 15px;
+  }
+   .removeImageCover{
+    right: 22px;
+  }
+}
 }

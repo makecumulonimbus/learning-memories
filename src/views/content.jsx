@@ -175,6 +175,8 @@ class Content extends React.Component {
       }));
     }
     if (formType === "cover") {
+      // const fileSize = e.target.files[0].size
+      // console.log(fileSize);
       var imageItem = e.target.files[0];
       var reader = new FileReader();
       reader.readAsDataURL(imageItem);
@@ -492,11 +494,10 @@ class Content extends React.Component {
               <Container className="shape-container d-flex align-items-center py-lg">
                 <div
                   id="modal-show-image"
-                  class="modal"
                   onClick={() => this.closeShowImge()}
                 >
-                  <span class="close">&times;</span>
-                  <img class="modal-content" id="imgShow" />
+                  <span className="close-show-image">&times;</span>
+                  <img className="modal-content-img" id="imgShow" />
                 </div>
 
                 <div className="btn-add">
