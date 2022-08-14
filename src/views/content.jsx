@@ -175,8 +175,15 @@ class Content extends React.Component {
       }));
     }
     if (formType === "cover") {
-      // const fileSize = e.target.files[0].size
-      // console.log(fileSize);
+      if (!e.target.files[0]) return;
+
+      var maxfilesize = 1024 * 1024;
+      var filesize = e.target.files[0].size;
+
+      if (filesize > maxfilesize) {
+        NotificationManager.error("FILE SIZE MAXIMUM 1MB", "ERROR", 3000);
+        return
+      }
       var imageItem = e.target.files[0];
       var reader = new FileReader();
       reader.readAsDataURL(imageItem);
@@ -214,6 +221,15 @@ class Content extends React.Component {
       this.setState({ formArray });
     }
     if (formType === "image") {
+      if (!e.target.files[0]) return;
+
+      var maxfilesize = 1024 * 1024;
+      var filesize = e.target.files[0].size;
+
+      if (filesize > maxfilesize) {
+        NotificationManager.error("FILE SIZE MAXIMUM 1MB", "ERROR", 3000);
+        return
+      }
       var imageItem = e.target.files[0];
       var reader = new FileReader();
       reader.readAsDataURL(imageItem);

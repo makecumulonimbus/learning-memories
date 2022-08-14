@@ -247,6 +247,15 @@ class HomePage extends React.Component {
         },
       }));
     } else if (formType === "image") {
+      if (!e.target.files[0]) return;
+
+      var maxfilesize = 1024 * 1024;
+      var filesize = e.target.files[0].size;
+
+      if (filesize > maxfilesize) {
+        NotificationManager.error("FILE SIZE MAXIMUM 1MB", "ERROR", 3000);
+        return
+      }
       var imageItem = e.target.files[0];
       var reader = new FileReader();
       reader.readAsDataURL(imageItem);
