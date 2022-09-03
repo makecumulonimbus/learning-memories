@@ -38,16 +38,6 @@ class HomePage extends React.Component {
     },
   };
 
-  // checkStoreData() {
-  //   if (this.props.appList.length != 0) {
-  //     this.setState({
-  //       datas: this.props.appList,
-  //     });
-  //   } else {
-  //     this.loadData();
-  //   }
-  // }
-
   loadData = () => {
     this.setState({
       loading: true,
