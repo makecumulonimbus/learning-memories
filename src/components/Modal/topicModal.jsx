@@ -65,6 +65,34 @@ const TopicModal = (props) => {
             </Col>
             <Col lg="6" md="6" sm="6">
               <FormGroup>
+                <Label for="Name">Status</Label>
+                <Input
+                  type="select"
+                  name="status"
+                  value={props.form.status}
+                  onChange={(e) => props.changeForm("status", e)}
+                >
+                  {props.optionStatus.map((element, index) => {
+                    return <option key={index}>{element.value}</option>;
+                  })}
+                </Input>
+              </FormGroup>
+            </Col>
+            <Col lg="6" md="6" sm="6">
+              <FormGroup>
+                <Label for="Name">Reference</Label>
+                <Input
+                  type="text"
+                  name="reference"
+                  placeholder="reference"
+                  value={props.form.reference}
+                  onChange={(e) => props.changeForm("reference", e)}
+                  autoComplete="off"
+                />
+              </FormGroup>
+            </Col>
+            <Col lg="6" md="6" sm="6">
+              <FormGroup>
                 <Label for="Name">Version</Label>
                 <Input
                   type="text"
@@ -75,21 +103,6 @@ const TopicModal = (props) => {
                   autoComplete="off"
                 />
               </FormGroup>
-            </Col>
-            <Col lg="6" md="6">
-              <FormGroup>
-                <Label for="Name">Reference</Label>
-                <Input
-                  type="text"
-                  name="reference"
-                  placeholder="refter"
-                  value={props.form.reference}
-                  onChange={(e) => props.changeForm("reference", e)}
-                  autoComplete="off"
-                />
-              </FormGroup>
-            </Col>
-            <Col lg="6" md="6">
             </Col>
             <Col lg="3" md="4">
               <FormGroup>

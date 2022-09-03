@@ -80,6 +80,7 @@ class Topic extends React.Component {
       cover: "",
       intro: "",
       reference: "",
+      status: "complete",
     },
 
     itemStart: null,
@@ -93,6 +94,10 @@ class Topic extends React.Component {
       { value: "recommand", label: "RECOMMAND" },
       { value: "knowledge", label: "KNOWLEDGE" },
       { value: "auth", label: "AUTH" },
+    ],
+    optionStatus: [
+      { value: "complete", label: "COMPLETE" },
+      { value: "not-complete", label: "NOT-COMPLETE" },
     ],
     dropdownOpen: false,
   };
@@ -144,6 +149,7 @@ class Topic extends React.Component {
             cover: doc.data().cover ? doc.data().cover : "",
             intro: doc.data().intro ? doc.data().intro : "",
             reference: doc.data().reference ? doc.data().reference : "",
+            status: doc.data().status ? doc.data().status : "complete",
             createAt: doc.data().createAt
               ? this.formatDate(doc.data().createAt)
               : "",
@@ -199,6 +205,7 @@ class Topic extends React.Component {
         preview: item.cover ? item.cover : "",
         intro: item.intro ? item.intro : "",
         reference: item.reference ? item.reference : "",
+        status: item.status ? item.status : "",
       },
       formArray: setForm,
       dataSelected: item,
@@ -287,6 +294,14 @@ class Topic extends React.Component {
         },
       }));
     }
+    if (formType === "status") {
+      this.setState((prevState) => ({
+        form: {
+          ...prevState.form,
+          status: value,
+        },
+      }));
+    }
   };
 
   changeFormArray = (formType, e, index) => {
@@ -344,6 +359,7 @@ class Topic extends React.Component {
       intro: data.intro,
       cover: data.cover,
       reference: data.reference,
+      status: data.status,
       content: dataForm,
     };
 
@@ -420,6 +436,7 @@ class Topic extends React.Component {
         intro: data.intro,
         cover: data.cover,
         reference: data.reference,
+        status: data.status,
         content: newitem,
       };
 
@@ -429,7 +446,7 @@ class Topic extends React.Component {
         .add(setData)
         .then((res) => {
           NotificationManager.success("", "SUCCESS");
-          if (this.state.datas.length >= 25) {
+          if (this.state.datas.length >= this.itemPerPage) {
             this.state.datas.pop();
           }
 
@@ -501,6 +518,7 @@ class Topic extends React.Component {
         intro: data.intro,
         cover: data.cover,
         reference: data.reference,
+        status: data.status,
         content: newitem,
       };
 
@@ -675,6 +693,7 @@ class Topic extends React.Component {
         version: "",
         intro: "",
         reference: "",
+        status: "complete",
         cover: "",
       },
       formArray: [],
@@ -798,6 +817,7 @@ class Topic extends React.Component {
                               className="mb-3 p-4 card-app-topic"
                               onClick={() => this.goDetail(ele)}
                             >
+                              {ele.status === 'not-complete' ? <div className="ribbon" ></div> : ''}
                               <Row>
                                 <Col className="col-topic-name" md="8" lg="9">
                                   <span className="topic-name">
@@ -806,7 +826,7 @@ class Topic extends React.Component {
                                 </Col>
                                 <Col md="4" lg="3" className="text-right">
                                   <div className="space-between">
-                                    <div className="status">
+                                    <div className="type-list">
                                       {ele.type === "how-to" ? (
                                         <span className="type-topic green">
                                           {ele.type}
@@ -924,6 +944,7 @@ class Topic extends React.Component {
             formArray={this.state.formArray}
             changeForm={this.changeForm.bind(this)}
             options={this.state.options}
+            optionStatus={this.state.optionStatus}
             addForm={this.addForm}
             deleteForm={this.deleteForm}
             changeFormArray={this.changeFormArray.bind(this)}

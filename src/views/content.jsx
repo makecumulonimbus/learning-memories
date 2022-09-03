@@ -1,7 +1,7 @@
 import React from "react";
 import "../App.scss";
 import "react-quill/dist/quill.snow.css";
-import { Button, Container, Card } from "reactstrap";
+import { Button, Container, Card, Row, Col } from "reactstrap";
 import moment from "moment";
 import { firebaseApp } from "../auth/firebaseConfig";
 import NavbarApp from "../components/Navbars/navbar";
@@ -67,6 +67,7 @@ class Content extends React.Component {
       cover: "",
       intro: "",
       reference: "",
+      status: "complete",
     },
     formArray: [
       {
@@ -83,6 +84,10 @@ class Content extends React.Component {
       { value: "recommand", label: "Recommand" },
       { value: "knowledge", label: "Knowledge" },
       { value: "auth", label: "Auth" },
+    ],
+    optionStatus: [
+      { value: "complete", label: "COMPLETE" },
+      { value: "not-complete", label: "NOT-COMPLETE" },
     ],
   };
   loadData = () => {
@@ -103,6 +108,7 @@ class Content extends React.Component {
           cover: doc.data().cover ? doc.data().cover : "",
           intro: doc.data().intro ? doc.data().intro : "",
           reference: doc.data().reference ? doc.data().reference : "",
+          status: doc.data().status ? doc.data().status : "complete",
           createAt: doc.data().createAt
             ? this.formatDate(doc.data().createAt)
             : "",
@@ -143,6 +149,7 @@ class Content extends React.Component {
         preview: item.cover ? item.cover : "",
         intro: item.intro ? item.intro : "",
         reference: item.reference ? item.reference : "",
+        status: item.status ? item.status : "",
       },
       formArray: setForm,
       dataSelected: item,
@@ -223,6 +230,14 @@ class Content extends React.Component {
         },
       }));
     }
+    if (formType === "status") {
+      this.setState((prevState) => ({
+        form: {
+          ...prevState.form,
+          status: value,
+        },
+      }));
+    }
   };
 
   changeFormArray = (formType, e, index) => {
@@ -285,6 +300,7 @@ class Content extends React.Component {
       version: data.version,
       intro: data.intro,
       reference: data.reference,
+      status: data.status,
       cover: data.cover,
       content: dataForm,
     };
@@ -346,6 +362,7 @@ class Content extends React.Component {
         version: data.version,
         intro: data.intro,
         reference: data.reference,
+        status: data.status,
         cover: data.cover,
         content: newitem,
       };
@@ -431,6 +448,7 @@ class Content extends React.Component {
         version: "",
         intro: "",
         reference: "",
+        status: "complete",
         cover: "",
       },
       formArray: [],
@@ -624,71 +642,98 @@ class Content extends React.Component {
                         );
                       })}
 
-                      <div className="pb-1 detail-sub">
-                        <span className="text-sub-detail">reference : </span>
-                        {this.state.datas.reference
-                          ? this.state.datas.reference
-                          : "-"}
-                      </div>
-                      <div className="pb-1 detail-sub d-flex align-items-center">
-                        <span className="text-sub-detail pr-1">type : </span>
-                        {this.state.datas.type === "how-to" ? (
-                          <span className="type-topic green">
-                            {this.state.datas.type}
-                          </span>
-                        ) : (
-                          ""
-                        )}
-                        {this.state.datas.type === "bug" ? (
-                          <span className="type-topic red">
-                            {this.state.datas.type}
-                          </span>
-                        ) : (
-                          ""
-                        )}
-                        {this.state.datas.type === "begin" ? (
-                          <span className="type-topic pink">
-                            {this.state.datas.type}
-                          </span>
-                        ) : (
-                          ""
-                        )}
-                        {this.state.datas.type === "recommand" ? (
-                          <span className="type-topic blue">
-                            {this.state.datas.type}
-                          </span>
-                        ) : (
-                          ""
-                        )}
-                        {this.state.datas.type === "knowledge" ? (
-                          <span className="type-topic yellow">
-                            {this.state.datas.type}
-                          </span>
-                        ) : (
-                          ""
-                        )}
-                        {this.state.datas.type === "auth" ? (
-                          <span className="type-topic orange">
-                            {this.state.datas.type}
-                          </span>
-                        ) : (
-                          ""
-                        )}
-                      </div>
-                      <div className="pb-1 detail-sub">
-                        <span className="text-sub-detail">version : </span>
-                        {this.state.datas.version
-                          ? this.state.datas.version
-                          : "-"}
-                      </div>
-                      <div className="pb-1 detail-sub">
-                        <span className="text-sub-detail">createAt : </span>
-                        {this.state.datas.createAt}
-                      </div>
-                      <div className="pb-1 detail-sub">
-                        <span className="text-sub-detail">updateAt : </span>
-                        {this.state.datas.updateAt}
-                      </div>
+                      {this.state.datas.content.length === 0 ? <hr></hr> : ""}
+                      <Row>
+                        <Col md="6">
+                          <div className="pb-1 detail-sub">
+                            <span className="text-sub-detail">
+                              reference :{" "}
+                            </span>
+                            {this.state.datas.reference
+                              ? this.state.datas.reference
+                              : "-"}
+                          </div>
+                        </Col>
+                        <Col md="6">
+                          <div className="pb-1 detail-sub d-flex align-items-center">
+                            <span className="text-sub-detail pr-1">
+                              type :{" "}
+                            </span>
+                            {this.state.datas.type === "how-to" ? (
+                              <span className="type-topic green">
+                                {this.state.datas.type}
+                              </span>
+                            ) : (
+                              ""
+                            )}
+                            {this.state.datas.type === "bug" ? (
+                              <span className="type-topic red">
+                                {this.state.datas.type}
+                              </span>
+                            ) : (
+                              ""
+                            )}
+                            {this.state.datas.type === "begin" ? (
+                              <span className="type-topic pink">
+                                {this.state.datas.type}
+                              </span>
+                            ) : (
+                              ""
+                            )}
+                            {this.state.datas.type === "recommand" ? (
+                              <span className="type-topic blue">
+                                {this.state.datas.type}
+                              </span>
+                            ) : (
+                              ""
+                            )}
+                            {this.state.datas.type === "knowledge" ? (
+                              <span className="type-topic yellow">
+                                {this.state.datas.type}
+                              </span>
+                            ) : (
+                              ""
+                            )}
+                            {this.state.datas.type === "auth" ? (
+                              <span className="type-topic orange">
+                                {this.state.datas.type}
+                              </span>
+                            ) : (
+                              ""
+                            )}
+                          </div>
+                        </Col>
+                        <Col md="6">
+                          <div className="pb-1 detail-sub">
+                            <span className="text-sub-detail">status : </span>
+                            {this.state.datas.status === 'complete' ? '✅': this.state.datas.status === 'not-complete' ? '❌' : ''}
+                            {this.state.datas.status
+                              ? this.state.datas.status
+                              : "-"}
+                             
+                          </div>
+                        </Col>
+                        <Col md="6">
+                          <div className="pb-1 detail-sub">
+                            <span className="text-sub-detail">version : </span>
+                            {this.state.datas.version
+                              ? this.state.datas.version
+                              : "-"}
+                          </div>
+                        </Col>
+                        <Col md="6">
+                          <div className="pb-1 detail-sub">
+                            <span className="text-sub-detail">createAt : </span>
+                            {this.state.datas.createAt}
+                          </div>
+                        </Col>
+                        <Col md="6">
+                          <div className="pb-1 detail-sub">
+                            <span className="text-sub-detail">updateAt : </span>
+                            {this.state.datas.updateAt}
+                          </div>
+                        </Col>
+                      </Row>
                     </div>
                   </Card>
                 </div>
@@ -719,6 +764,7 @@ class Content extends React.Component {
             formArray={this.state.formArray}
             changeForm={this.changeForm.bind(this)}
             options={this.state.options}
+            optionStatus={this.state.optionStatus}
             addForm={this.addForm}
             deleteForm={this.deleteForm}
             changeFormArray={this.changeFormArray.bind(this)}

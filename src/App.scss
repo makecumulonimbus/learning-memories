@@ -376,7 +376,6 @@ nav.react-contextmenu {
 .pagination {
   box-shadow: 0px 4px 6px RGB(50 50 93 / 0.11);
   float: right;
-
 }
 .drop-filter button {
   margin-top: -4px;
@@ -582,4 +581,14 @@ nav.react-contextmenu {
       right: 22px;
     }
   }
+}
+.ribbon {
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+  position: absolute;
+  background: #ffe63a;
+  width: 13px;
+  height: 100%;
+  top: 0;
+  left: -1px;
 }
