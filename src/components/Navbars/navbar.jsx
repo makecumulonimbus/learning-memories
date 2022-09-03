@@ -22,7 +22,7 @@ import {
   Col,
 } from "reactstrap";
 import "../../App.scss";
-import LogoutImg  from "../../assets/img/logout.svg"
+import LogoutImg from "../../assets/img/logout.svg";
 
 class NavbarApp extends React.Component {
   componentDidMount() {
@@ -118,7 +118,8 @@ class NavbarApp extends React.Component {
                     </DropdownToggle>
                     <DropdownMenu>
                       <DropdownItem to="/change-log" tag={Link}>
-                        <i className="ni ni-single-copy-04 iconMenu" />Change Log
+                        <i className="ni ni-single-copy-04 iconMenu" />
+                        Change Log
                       </DropdownItem>
                     </DropdownMenu>
                   </UncontrolledDropdown>
@@ -150,7 +151,7 @@ class NavbarApp extends React.Component {
                 Are you want to sign out ?
               </div>
               <div className="text-center pt-3">
-                <img src={LogoutImg} width="120px"/>
+                <img src={LogoutImg} width="120px" />
               </div>
             </ModalBody>
             <ModalFooter>

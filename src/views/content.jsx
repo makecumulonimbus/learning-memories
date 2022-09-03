@@ -706,11 +706,14 @@ class Content extends React.Component {
                         <Col md="6">
                           <div className="pb-1 detail-sub">
                             <span className="text-sub-detail">status : </span>
-                            {this.state.datas.status === 'complete' ? '✅': this.state.datas.status === 'not-complete' ? '❌' : ''}
+                            {this.state.datas.status === "complete"
+                              ? "✅"
+                              : this.state.datas.status === "not-complete"
+                              ? "❌"
+                              : ""}
                             {this.state.datas.status
                               ? this.state.datas.status
                               : "-"}
-                             
                           </div>
                         </Col>
                         <Col md="6">

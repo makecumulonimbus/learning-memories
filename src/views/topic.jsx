@@ -817,7 +817,11 @@ class Topic extends React.Component {
                               className="mb-3 p-4 card-app-topic"
                               onClick={() => this.goDetail(ele)}
                             >
-                              {ele.status === 'not-complete' ? <div className="ribbon" ></div> : ''}
+                              {ele.status === "not-complete" ? (
+                                <div className="ribbon"></div>
+                              ) : (
+                                ""
+                              )}
                               <Row>
                                 <Col className="col-topic-name" md="8" lg="9">
                                   <span className="topic-name">

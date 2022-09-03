@@ -29,7 +29,7 @@ const AppModal = (props) => {
         <ModalHeader toggle={props.cancelToggle}>{props.mode}</ModalHeader>
         <ModalBody>
           <Row>
-            <Col lg="4" xs="5">
+            <Col lg="4" sm="4" xs="12">
               <FormGroup>
                 <Label for="Image">Image (700*700)</Label>
                 <div className="uploadForm">
@@ -58,7 +58,7 @@ const AppModal = (props) => {
                 </div>
               </FormGroup>
             </Col>
-            <Col lg="8" xs="7">
+            <Col lg="8" sm="8" xs="12">
               <FormGroup>
                 <Label for="Name">Name</Label>
                 <Input
