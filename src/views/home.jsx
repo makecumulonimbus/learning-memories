@@ -15,7 +15,7 @@ import { connect } from "react-redux";
 
 class HomePage extends React.Component {
   componentDidMount() {
-    if (this.props.appList.length != 0) {
+    if (this.props.appList.length !== 0) {
       this.setState({
         datas: this.props.appList,
       });

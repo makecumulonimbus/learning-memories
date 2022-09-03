@@ -30,8 +30,8 @@ import { connect } from "react-redux";
 class Topic extends React.Component {
   componentDidMount() {
     if (
-      this.props.topicPageDetail.nameApp == this.props.match.params.name &&
-      this.props.topicList.length != 0
+      this.props.topicPageDetail.nameApp === this.props.match.params.name &&
+      this.props.topicList.length !== 0
     ) {
       this.setState({
         datas: this.props.topicList,

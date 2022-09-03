@@ -382,10 +382,10 @@ class Content extends React.Component {
           setData.createAt = this.state.dataSelected.createAt;
           setData.updateAt = _dateE;
           setData.id = this.state.dataSelected.id;
-          this.state.datas = setData;
-          this.setTopicSelected(this.state.datas);
-          this.setTopicList(this.state.datas);
+          this.setTopicSelected(setData);
+          this.setTopicList(setData);
           this.setState({
+            datas : setData,
             loading: false,
           });
         })
@@ -488,7 +488,7 @@ class Content extends React.Component {
   }
 
   setTopicList = (data) => {
-    if (this.props.topicList.length != 0) {
+    if (this.props.topicList.length !== 0) {
       let topicData = this.props.topicList;
       let newData = topicData.map((el) => (el.id === data.id ? data : el));
       this.props.dispatch({
@@ -542,7 +542,7 @@ class Content extends React.Component {
               <Container className="shape-container d-flex align-items-center py-lg">
                 <div id="modal-show-image" onClick={() => this.closeShowImge()}>
                   <span className="close-show-image">&times;</span>
-                  <img className="modal-content-img" id="imgShow" />
+                  <img className="modal-content-img" id="imgShow" alt=""/>
                 </div>
 
                 <div className="btn-add">
@@ -579,6 +579,7 @@ class Content extends React.Component {
                             onClick={() =>
                               this.showImage(this.state.datas.cover)
                             }
+                            alt=""
                           ></img>
                         ) : (
                           ""

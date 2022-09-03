@@ -151,7 +151,7 @@ class NavbarApp extends React.Component {
                 Are you want to sign out ?
               </div>
               <div className="text-center pt-3">
-                <img src={LogoutImg} width="120px" />
+                <img src={LogoutImg} width="120px" alt=""/>
               </div>
             </ModalBody>
             <ModalFooter>
