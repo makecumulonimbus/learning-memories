@@ -64,8 +64,8 @@ const Login = ({ history }) => {
                 <Card className="bg-secondary shadow border-0">
                   <CardHeader className="bg-white">
                     <div className="text-center title-app-login">
-                      <img className="logo" src={logo} width="90px" alt="" />
-                      <span>Learning Memories</span>
+                      <img className="logo" src={logo} width="80px" alt="" />
+                      <span className="pl-2">Learning Memories</span>
                     </div>
                   </CardHeader>
                   <CardBody className="px-5 py-5 card-body-custom">
