@@ -17,6 +17,7 @@ import { connect } from "react-redux";
 
 class Content extends React.Component {
   componentDidMount() {
+    window.scroll(0,0)
     if (
       this.props.topicSelected.id !== undefined &&
       this.props.topicSelected.id === this.props.match.params.id
@@ -651,7 +652,7 @@ class Content extends React.Component {
                               reference :{" "}
                             </span>
                             {this.state.datas.reference
-                              ? this.state.datas.reference
+                              ? <a href={this.state.datas.reference} target="_blank" rel="noreferrer">{this.state.datas.reference}</a>
                               : "-"}
                           </div>
                         </Col>
@@ -708,9 +709,9 @@ class Content extends React.Component {
                           <div className="pb-1 detail-sub">
                             <span className="text-sub-detail">status : </span>
                             {this.state.datas.status === "complete"
-                              ? "✅"
+                              ? "✅ "
                               : this.state.datas.status === "not-complete"
-                              ? "❌"
+                              ? "❌ "
                               : ""}
                             {this.state.datas.status
                               ? this.state.datas.status

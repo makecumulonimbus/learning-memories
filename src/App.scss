@@ -304,6 +304,7 @@ nav.react-contextmenu {
 }
 .topic-title {
   font-size: 23px;
+  margin-bottom: 8px;
 }
 .content-title {
   margin-top: 15px;
@@ -586,9 +587,16 @@ nav.react-contextmenu {
   border-top-left-radius: 0.25rem;
   border-bottom-left-radius: 0.25rem;
   position: absolute;
-  background: #FFC963;
+  background: #ffc963;
   width: 13px;
   height: 100%;
   top: 0;
   left: -1px;
+}
+
+p {
+  margin-bottom: 0rem !important;
+}
+.detail-text {
+  margin-bottom: 0.5rem;
 }
